@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boksamling - Grupp 22</title>
+
+    <!-- Vi laddar in bootstrap  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- Vi har våran meddelande box här, som har klassen d-none för att vi ska dölja den vid start
+     Vi styr den genom script.js genom att ta bort och lägga till klasser för att ändra utseendet och göra den synlig/osynlig
+     samt ändra texten i script.js -->
+    <div id="messageBox" class="alert alert-success d-none" role="alert"></div>
+
+    <div class="background-blobs"></div>
+
+   
+    <div class="container py-5 position-relative">
+       <!-- Skapat och stylat header -->
+      <header class="text-center mb-5 text-white">
+        <h1 class="display-4 fw-bold">Min Boksamling</h1>
+        <p class="lead">Välkommen här kan du lägga till alla dina böcker, det blir som ditt egna bibliotek</p>
+      </header>
+
+
+      <div class="row g-4">
+        <!-- Skapat formulär så att användare kan lägga in / ändra böcker, även lagt till lite extra styling med hjälp av glass panel -->
+        <div class="col-md-4">
+          <div class="glass-panel p-4 sticky-top" style="top: 20px; z-index: 10;">
+            <h3 class="mb-3 text-white">Lägg till / Ändra</h3>
+            
+            <form id="bookForm" novalidate>
+              <!-- Har skapat ett fällt för bookid men vi gör det dolt iom att användare inte ska se det plus att det står i beskrivningen -->
+              <input type="hidden" id="bookId" />
+
+              <div class="mb-3">
+                <label for="title" class="form-label text-white-50">Titel</label>
+
+                <!-- Vi har input fällt som visas på hemsidan men har även lagt till en placeholder 
+                 det ska ge användare en hint om vad man ska skriva i fältet -->
+                <input type="text" class="form-control" id="title" required placeholder="T.ex. Harry Potter" /> 
+                
+                <!-- Denna är till för att ge användare feedback vid felaktig input, den är dold vid start och styrs via script.js. 
+                 Blir synlig när användare väll har gjort fel -->
+                <div class="invalid-feedback">Du måste ange en titel.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="author" class="form-label text-white-50">Författare</label>
+                <input type="text" class="form-control" id="author" required placeholder="T.ex. J.K. Rowling" />
+                <div class="invalid-feedback">Du måste ange en författare.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="genre" class="form-label text-white-50">Genre</label>
+
+                <!-- Vi har förvalda genre alternativ som användare får välja emellan genom select element -->
+                <select class="form-select" id="genre" required>
+                  <option value="" selected disabled>Välj genre...</option>
+                  <option value="Fantasy">Fantasy</option>
+                  <option value="Deckare">Deckare</option>
+                  <option value="Fakta">Fakta</option>
+                </select>
+              </div>
+
+              <!-- Samma logik som tidiagre med titel för dem två nedstående elementen.  -->
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <label for="year" class="form-label text-white-50">År</label>
+                  <input type="number" class="form-control" id="year" required min="1800" max="2026" placeholder="2001" />
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="pages" class="form-label text-white-50">Sidor</label>
+                  <input type="number" class="form-control" id="pages" required min="1" placeholder="300" />
+                </div>
+              </div>
+
+                <!-- Skapat spara knapp som submitar formuläret i script.js har vi lagt en eventlistner
+                 på eventet sumbit. För att då läsa in data man har skrivit in och sedan skicka den till server -->
+              <button type="submit" class="btn btn-light w-100 fw-bold text-primary mt-2">
+                Spara Bok
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <h3 class="text-white mb-3">Bibliotek</h3>
+
+          <!-- Inuti bookList så kommer vi att lägga in alla böcker som seperata element via script.js så fort dem har laddads in
+           Vi håller den också uppdaterad när man ändrar en bok  -->
+          <div id="bookList" class="fade-in-list">
+
+            <!-- Vi har lagt in en loading spinner som visas fram tills script.js laddad in böckerna och uppdaterad innehållet i bookList elementet
+             Så att användare inte blir förvirrad vad som händer och faktiskt ser att sidan laddas -->
+            <div class="text-center text-white-50 mt-5">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Laddar...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Läste att bootstrap har både css och javascript pga har jag lagt javascript länken i script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="script.js"></script>
+  </body>
+</html>
